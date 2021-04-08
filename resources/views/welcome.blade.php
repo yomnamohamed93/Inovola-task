@@ -8,92 +8,69 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
+            .card-title ,.main-title , .card-footer .text-muted{
+                color: royalblue  !important;
             }
-
-            .full-height {
-                height: 100vh;
+            .card-text{
+                color: orangered !important;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            small.text-muted{
+                color: #6c757dd1 !important;
+                font-weight: 500 !important;
+                font-size: 75% !important;
             }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        <div class="py-5">
+                <div class="container">
+                    <div class="d-flex pb-5 justify-content-between">
+                        <h1 class="text-center main-title">Daily News</h1>
+                        <select class="form-control" style="width:30% !important" id="sorting">
+                            <option value="">Sort by</option>
+                            <option value="rating-asc">rating asc</option>
+                            <option value="rating-desc">rating desc</option>
+                            <option value="datetime-asc">date asc</option>
+                            <option value="datetime-desc">date desc</option>
+                        </select>
+                    </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                    <div class="row pt-4" id="news-wrapper">
+                        @foreach ($news_data as $item)
+                            <div class="col-4 py-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="pb-4">
+                                            <h4 class="card-title mb-0">{{$item["title"]}}</h4>
+                                            <small class="card-subtitle text-muted">{{$item["datetime"]}}</small>
+                                        </div>
+                                        <p class="card-text">{{$item["Content"]}}</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between">
+                                        <div class="text-muted">Rating: {{$item["rating"]}}</div>
+                                        <div class="text-muted">Source: {{$item["source"]}}</div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                        @endforeach
+                     </div>
                 </div>
             </div>
-        </div>
+            <input type="hidden"  id="token" name="_token" value="{{ csrf_token() }}" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>
+             let BASE_URL="{{url('/') }}";
+        </script>
+        <script src="{{asset('assets/main.js')}}"></script>
     </body>
 </html>

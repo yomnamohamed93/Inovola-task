@@ -10,3 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/',"Frontend\NewsController@index");
+Route::get('sort_news',"Frontend\NewsController@sorting");
+

@@ -4,7 +4,7 @@ Laravel version "5.8".
 
 ### Installation and configuration steps
 
- <pre> git clone git@github.com:yomnamohamed93/Inovola-task.git </pre>   
+ <pre> git clone https://github.com/yomnamohamed93/Inovola-task.git </pre>   
  <pre>  cd Inovola-task </pre>
  <pre>  composer install </pre>
  
